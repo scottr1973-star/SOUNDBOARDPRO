@@ -25,61 +25,65 @@
   .muted{color:var(--muted)}
   .small{font-size:12px}
   .sr-hide{display:none !important}
-  .num{width:70px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#0f1519;color:#e9f6f2}
+  .num{width:72px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#0f1519;color:#e9f6f2}
 
-  /* Pads — lighter + raised/3D */
-  .padgrid{display:grid;grid-template-columns:repeat(8, 1fr);gap:10px;margin-top:8px}
+  /* Pads — brighter + 3D + stronger glow on hit */
+  .padgrid{display:grid;grid-template-columns:repeat(8, minmax(64px,1fr));gap:10px;margin-top:8px;width:100%}
   .pad{
     user-select:none;touch-action:manipulation;cursor:pointer;height:78px;border-radius:16px;position:relative;overflow:hidden;
     display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;letter-spacing:.4px;
     border:1px solid rgba(255,255,255,.16);
-    background: linear-gradient(180deg,#192229,#0f1519);
+    background: linear-gradient(180deg,#1c2830,#12191e);
     box-shadow:
       0 18px 28px rgba(0,0,0,.45),
-      0 2px 0 rgba(255,255,255,.09) inset,
+      0 2px 0 rgba(255,255,255,.08) inset,
       0 -14px 26px rgba(0,0,0,.34) inset;
-    padding:6px; outline:none; filter:saturate(1.25) brightness(1.08);
+    padding:6px; outline:none;
+    filter:saturate(1.35) brightness(1.1);
   }
   .pad::before{
     content:""; position:absolute; inset:0; border-radius:16px; pointer-events:none;
-    background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 40%);
-    mix-blend-mode:screen; opacity:.7;
+    background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 40%);
+    mix-blend-mode:screen; opacity:.8;
   }
   .pad .sub{position:absolute;bottom:6px;left:8px;font:11px/1.1 ui-monospace,Menlo,Consolas;color:#c0d5cd;opacity:.95}
-  .pad::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:16px}
-  .quad0{background:linear-gradient(180deg, rgba(60,255,178,.32), rgba(60,255,178,.12) 32%, #132028 100%)}
-  .quad1{background:linear-gradient(180deg, rgba(90,210,255,.34), rgba(90,210,255,.14) 32%, #132028 100%)}
-  .quad2{background:linear-gradient(180deg, rgba(255,214,120,.36), rgba(255,214,120,.16) 32%, #132028 100%)}
-  .quad3{background:linear-gradient(180deg, rgba(255,125,118,.38), rgba(255,125,118,.18) 32%, #132028 100%)}
-  .pad.playing{transform:translateY(1px);
+  .quad0{background:linear-gradient(180deg, rgba(60,255,178,.42), rgba(60,255,178,.16) 32%, #132028 100%)}
+  .quad1{background:linear-gradient(180deg, rgba(90,210,255,.46), rgba(90,210,255,.18) 32%, #132028 100%)}
+  .quad2{background:linear-gradient(180deg, rgba(255,214,120,.46), rgba(255,214,120,.18) 32%, #132028 100%)}
+  .quad3{background:linear-gradient(180deg, rgba(255,125,118,.48), rgba(255,125,118,.20) 32%, #132028 100%)}
+  .pad.playing{
+    transform:translateY(1px);
     box-shadow:
-      0 12px 20px rgba(0,0,0,.45),
-      0 2px 0 rgba(255,255,255,.10) inset,
-      0 -32px 62px rgba(255,255,255,.10) inset;
-    filter:saturate(1.55) brightness(1.2);
+      0 12px 22px rgba(0,0,0,.5),
+      0 0 24px rgba(90,210,255,.55),
+      0 -32px 62px rgba(255,255,255,.12) inset;
+    filter:saturate(1.7) brightness(1.25);
   }
-  .pad.recording{outline:2px solid rgba(255,85,85,.7); box-shadow:0 0 18px rgba(255,85,85,.45), inset 0 -32px 62px rgba(255,255,255,.10);}
+  .pad.recording{outline:2px solid rgba(255,85,85,.8); box-shadow:0 0 24px rgba(255,85,85,.55), inset 0 -32px 62px rgba(255,255,255,.12);}
 
   /* Panels */
   .panel{margin-top:12px;display:none}
   .panel.show{display:block}
 
-  /* Sequencer grid */
+  /* Sequencer grid — brighter “on” + clearer current step */
   #seqGrid{display:grid;grid-template-columns:120px repeat(16, 1fr);gap:4px}
   .track-label{display:flex;gap:6px;align-items:center;font-weight:700}
-  .step{height:22px;border-radius:6px;border:1px solid var(--line);background:#121a1d;cursor:pointer;position:relative;transition:filter .12s ease, box-shadow .12s ease;}
-  .step.on{box-shadow:inset 0 -10px 20px rgba(255,255,255,.07), 0 2px 6px rgba(0,0,0,.2); filter:saturate(1.3) brightness(1.05)}
-  .step.cur{outline:2px solid rgba(66,198,255,.55)}
+  .step{height:22px;border-radius:6px;border:1px solid var(--line);background:#121a1d;cursor:pointer;position:relative;transition:filter .12s ease, box-shadow .12s ease, background .12s ease;}
+  .step.on{box-shadow:
+      inset 0 -10px 24px rgba(255,255,255,.12),
+      0 0 14px rgba(66,198,255,.45);
+    filter:saturate(1.45) brightness(1.1)}
+  .step.cur{outline:2px solid rgba(255,255,255,.75); box-shadow:0 0 10px rgba(255,255,255,.35)}
   .step.beatStart{border-left:2px solid rgba(255,255,255,.18)}
-  .step.b0{background:linear-gradient(180deg, rgba(48,243,155,.12), #121a1d)}
-  .step.b1{background:linear-gradient(180deg, rgba(66,198,255,.12), #121a1d)}
-  .step.b2{background:linear-gradient(180deg, rgba(255,204,102,.14), #121a1d)}
-  .step.b3{background:linear-gradient(180deg, rgba(255,105,97,.14), #121a1d)}
+  .step.b0{background:linear-gradient(180deg, rgba(48,243,155,.26), #121a1d)}
+  .step.b1{background:linear-gradient(180deg, rgba(66,198,255,.28), #121a1d)}
+  .step.b2{background:linear-gradient(180deg, rgba(255,204,102,.30), #121a1d)}
+  .step.b3{background:linear-gradient(180deg, rgba(255,105,97,.30), #121a1d)}
 
   .scene-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   .chainline{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 
-  /* Rotary knobs – deeper bevel/specular */
+  /* Rotary knobs — add subtle black outline */
   .knobrow{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
   .knob{--k:86px; width:var(--k); display:flex; flex-direction:column; align-items:center; gap:6px; user-select:none}
   .knob, .knob .k-face{ touch-action:none; overscroll-behavior:contain; }
@@ -91,6 +95,7 @@
       linear-gradient(180deg,#12181d,#0a1014);
     border:1px solid rgba(255,255,255,.25);
     box-shadow:
+      0 0 0 1px #000,                 /* thin black outline */
       inset 0 14px 28px rgba(255,255,255,.10),
       inset 0 -12px 24px rgba(0,0,0,.60),
       0 12px 30px rgba(0,0,0,.48);
@@ -116,27 +121,37 @@
   .k-val{font:11px;font-family:ui-monospace,Menlo,Consolas;color:#bfe1d7}
   .fx-knobs{display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start}
 
-  /* Kit editor layout */
-  .kit-grid{display:grid;grid-template-columns:34px 140px 1fr;gap:6px;margin-top:8px}
-  .kit-row{display:grid;grid-template-columns:34px 140px 1fr;gap:6px;align-items:center;padding:6px 6px;border-bottom:1px solid var(--line)}
+  /* Kit editor layout — wider name col, snug controls */
+  .kit-grid{display:grid;grid-template-columns:180px 1fr;gap:8px;margin-top:8px}
+  .kit-row{display:grid;grid-template-columns:180px 1fr;gap:8px;align-items:center;padding:6px;border-bottom:1px solid var(--line)}
   .kit-head{font-size:12px;color:#c9ded6;opacity:.9;padding:4px 0;border-bottom:1px solid var(--line)}
   .namecell{display:flex;flex-direction:column;gap:6px}
-  .namecell input[type="text"]{width:100%;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#0f1519;color:var(--ink)}
-  .namecell .fileline{display:flex;align-items:center;gap:8px}
+  .padid{font:11px/1.2 ui-monospace,Menlo,Consolas;color:#a8bbb4;opacity:.9}
+  .namecell input[type="text"]{width:100%;min-width:160px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#0f1519;color:#e9f6f2}
+  .namecell .fileline{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .namecell .dur{font:11px;color:#a8bbb4}
 
   .kit-controls{
     display:grid;
-    grid-template-columns: repeat(6, 54px) minmax(170px, 1fr);
-    gap:6px 6px;
+    grid-template-columns: repeat(6, 50px) auto; /* 6 sliders + autosized right cell */
+    gap:6px;
     align-items:start;
   }
   .kit-controls .rightcell{
     grid-column: 7;
-    grid-row:1 / span 2;
-    display:flex;flex-direction:column;gap:8px;align-self:stretch;justify-content:flex-start;
+    grid-row: 1 / span 2;
+    display:flex;flex-direction:column;gap:8px;
+    align-self:flex-start;
+    width:auto;
+    min-width:max-content;       /* shrink to content width */
   }
-  .kit-controls select{padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#0f1519;color:#0ffaf0}
+  .kit-controls select{
+    padding:6px 8px;border-radius:8px;border:1px solid var(--line);
+    background:#0f1519;color:#0ffaf0;
+    width:fit-content;           /* as wide as the widest word */
+    max-width:100%;
+    white-space:nowrap;
+  }
   .rightcell label{font:12px/1.2 Inter,ui-sans-serif;color:#cfe2db;display:flex;flex-direction:column;gap:4px}
   .rightcell .checks{display:flex;flex-direction:column;gap:4px}
   .rightcell .checks label{flex-direction:row;align-items:center;gap:6px}
@@ -145,36 +160,55 @@
   .vlabel{font:11px;color:#cfe2db}
   .vval{font:11px;color:#bfe1d7;font-family:ui-monospace,Menlo,Consolas;text-align:center;width:100%}
 
-  /* Vertical slider */
+  /* ============================== */
+  /* Vertical sliders – thumb nudged ~3px RIGHT (was 6px) */
+  /* ============================== */
   .vslider{
     --throw: 60px; --track-w: 10px; --thumb: 22px;
+    --thumb-offset: 3px;           /* tweak this value if you want more/less nudge */
     width: 44px; height: var(--throw); padding:0; background:transparent; writing-mode:bt-lr;
-    -webkit-appearance:slider-vertical; appearance:slider-vertical;
+    -webkit-appearance: slider-vertical; appearance: slider-vertical;
   }
+
+  /* Track visuals (centered) */
   .vslider::-webkit-slider-runnable-track{
     width:var(--track-w); height:var(--throw); border:none;
-    background:linear-gradient(180deg,#0b1115,#1b2630), radial-gradient(120% 80% at 50% 12%, rgba(255,255,255,.22), rgba(255,255,255,0) 70%);
+    background:
+      radial-gradient(120% 80% at 50% 12%, rgba(255,255,255,.22), rgba(255,255,255,0) 70%),
+      linear-gradient(180deg,#0b1115,#1b2630);
     border-radius:7px; box-shadow: inset 0 6px 10px rgba(255,255,255,.08), inset 0 -9px 14px rgba(0,0,0,.60), 0 0 0 1px rgba(255,255,255,.22);
     margin:0 auto;
   }
+  .vslider::-moz-range-track{
+    width:var(--track-w); height:var(--throw);
+    background:
+      radial-gradient(120% 80% at 50% 12%, rgba(255,255,255,.22), rgba(255,255,255,0) 70%),
+      linear-gradient(180deg,#0b1115,#1b2630);
+    border-radius:7px; box-shadow: inset 0 6px 10px rgba(255,255,255,.08), inset 0 -9px 14px rgba(0,0,0,.60), 0 0 0 1px rgba(255,255,255,.22);
+  }
+
+  /* Thumb (uses transform instead of margin for reliable horizontal nudge) */
   .vslider::-webkit-slider-thumb{
     -webkit-appearance:none; appearance:none;
     width:var(--thumb); height:var(--thumb);
-    margin-left: calc((var(--thumb) - var(--track-w)) / -2);
-    background: radial-gradient(62% 62% at 36% 32%, rgba(255,255,255,.40), rgba(255,255,255,.12) 64%, rgba(0,0,0,.52) 100%), linear-gradient(180deg,#2d3941,#0e151a);
+    margin:0;
+    transform: translateX(var(--thumb-offset)); /* Chromium/Safari */
+    background:
+      radial-gradient(58% 58% at 34% 32%, rgba(255,255,255,.55), rgba(255,255,255,.12) 66%, rgba(0,0,0,.55) 100%),
+      radial-gradient(120% 120% at 70% 70%, rgba(255,255,255,.20), rgba(255,255,255,0) 60%),
+      linear-gradient(180deg,#2d3941,#0e151a);
     border:1px solid rgba(255,255,255,.30); border-radius:50%;
-    box-shadow: inset 0 3px 6px rgba(255,255,255,.16), inset 0 -4px 8px rgba(0,0,0,.62), 0 4px 10px rgba(0,0,0,.48);
-  }
-  .vslider::-moz-range-track{
-    width:var(--track-w); height:var(--throw);
-    background:linear-gradient(180deg,#0b1115,#1b2630), radial-gradient(120% 80% at 50% 12%, rgba(255,255,255,.22), rgba(255,255,255,0) 70%);
-    border-radius:7px; box-shadow: inset 0 6px 10px rgba(255,255,255,.08), inset 0 -9px 14px rgba(0,0,0,.60), 0 0 0 1px rgba(255,255,255,.22);
+    box-shadow:0 0 0 1px #000, inset 0 4px 7px rgba(255,255,255,.18), inset 0 -6px 10px rgba(0,0,0,.62), 0 6px 12px rgba(0,0,0,.55);
   }
   .vslider::-moz-range-thumb{
     width:var(--thumb); height:var(--thumb);
-    background: radial-gradient(62% 62% at 36% 32%, rgba(255,255,255,.40), rgba(255,255,255,.12) 64%, rgba(0,0,0,.52) 100%), linear-gradient(180deg,#2d3941,#0e151a);
+    transform: translateX(var(--thumb-offset)); /* Firefox */
+    background:
+      radial-gradient(58% 58% at 34% 32%, rgba(255,255,255,.55), rgba(255,255,255,.12) 66%, rgba(0,0,0,.55) 100%),
+      radial-gradient(120% 120% at 70% 70%, rgba(255,255,255,.20), rgba(255,255,255,0) 60%),
+      linear-gradient(180deg,#2d3941,#0e151a);
     border:1px solid rgba(255,255,255,.30); border-radius:50%;
-    box-shadow: inset 0 3px 6px rgba(255,255,255,.16), inset 0 -4px 8px rgba(0,0,0,.62), 0 4px 10px rgba(0,0,0,.48);
+    box-shadow:0 0 0 1px #000, inset 0 4px 7px rgba(255,255,255,.18), inset 0 -6px 10px rgba(0,0,0,.62), 0 6px 12px rgba(0,0,0,.55);
   }
 
   /* Sampler */
@@ -191,6 +225,19 @@
   .piano .key.white{flex:1; height:100%; background:linear-gradient(180deg,#f6f8f9,#d7e4e0); border:1px solid var(--line); border-radius:6px; position:relative}
   .piano .key.black{position:absolute; width:calc((100% / 14) * 0.6); height:65%; top:0; background:linear-gradient(180deg,#0a0f12,#1a2228); border:1px solid var(--line); border-radius:6px; z-index:2; transform:translateX(-50%)}
   .piano .key.active{filter:saturate(1.35) brightness(1.12); box-shadow:inset 0 -18px 40px rgba(0,0,0,.22)}
+
+  /* Mobile tweaks */
+  @media (max-width: 760px){
+    .kit-grid{grid-template-columns:150px 1fr}
+    .kit-row{grid-template-columns:150px 1fr}
+  }
+  @media (max-width: 520px){
+    .kit-grid{grid-template-columns:140px 1fr}
+    .kit-row{grid-template-columns:140px 1fr}
+    .kit-controls{grid-template-columns: repeat(6, 44px) auto}
+    .vcol{width:44px}
+    .padgrid{grid-template-columns:repeat(4, minmax(64px,1fr))} /* portrait: avoid bunching left */
+  }
 </style>
 </head>
 <body>
@@ -223,7 +270,6 @@
         </div>
 
         <div class="kit-grid">
-          <div class="kit-head">#</div>
           <div class="kit-head">Name / Sample</div>
           <div class="kit-head">Controls</div>
         </div>
@@ -325,6 +371,7 @@
           <label class="small">Assign to pad:
             <select id="samplerPad"></select>
           </label>
+          <label class="small"><input type="checkbox" id="assignUsePitch" checked> Use key pitch</label>
           <button class="btn small" id="samplerAssign">Assign Selection</button>
           <button class="btn small" id="samplerSliceRow">Slice ×8 to Row</button>
         </div>
@@ -337,7 +384,7 @@
           <button class="btn small" id="sampModeBtn" aria-pressed="true">One-shot</button>
         </div>
 
-        <!-- New: keyboard layers -->
+        <!-- Keyboard layers -->
         <div class="sampler-row small">
           <span>Layers:</span>
           <span id="layerList" class="muted">—</span>
@@ -350,7 +397,6 @@
         <div id="samplerKeys" class="piano">
           <div class="white-keys"></div>
         </div>
-
       </div>
 
       <!-- Kit Manager -->
@@ -358,7 +404,7 @@
         <div class="row">
           <div class="label">Kits</div>
           <span class="spacer"></span>
-          <input id="kitName" placeholder="Kit name" class="small" style="padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#0f1519;color:#e9f6f2;width:220px">
+          <input id="kitName" placeholder="Kit name" class="small" style="padding:6px 8px;border:1px solid var(--line);background:#0f1519;color:#e9f6f2;width:220px">
           <button class="btn small" id="kitSaveAs">Save As</button>
           <button class="btn small" id="kitExport">Export</button>
           <button class="btn small" id="kitImportBtn">Import</button>
@@ -367,7 +413,6 @@
         <div class="small muted" style="margin:4px 0 10px">Local library stored in your browser. Click a kit to load. Export/Import includes <strong>patterns</strong> and <strong>chain</strong>.</div>
         <div id="kitList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px"></div>
       </div>
-
     </div>
   </div>
 
